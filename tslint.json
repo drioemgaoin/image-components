@@ -1,0 +1,49 @@
+{
+    "extends": [
+        "tslint-eslint-rules"
+    ],
+    "rules": {
+        "class-name": true,
+        "comment-format": [true, "check-space"],
+        "indent": [true, "spaces"],
+        "no-duplicate-variable": true,
+        "no-eval": true,
+        "no-internal-module": true,
+        "no-trailing-whitespace": true,
+        "no-var-keyword": true,
+        "one-line": [true, "check-open-brace", "check-whitespace"],
+        "quotemark": [true, "single", "jsx-double", "avoid-escape"],
+        "semicolon": [true, "always", "ignore-bound-class-methods"],
+        "triple-equals": [true, "allow-null-check"],
+        "no-unused-variable": [true, "react"],
+        "import-spacing": true,
+        "no-consecutive-blank-lines": [true],
+        "typedef-whitespace": [
+            true, 
+            {
+                "call-signature": "nospace",
+                "index-signature": "nospace",
+                "parameter": "nospace",
+                "property-declaration": "nospace",
+                "variable-declaration": "nospace"
+            },
+            {
+                "call-signature": "onespace",
+                "index-signature": "onespace",
+                "parameter": "onespace",
+                "property-declaration": "onespace",
+                "variable-declaration": "onespace" 
+            }
+        ],
+        "variable-name": [true, "ban-keywords"],
+        "whitespace": [true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-module",
+            "check-separator",
+            "check-type",
+            "check-preblock"
+        ]
+    }
+}
