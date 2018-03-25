@@ -1,34 +1,44 @@
 @import './button.scss';
 
 .Upload {
-    border: 1px dashed gray;
-    padding: 10px;
+    border: 3px dashed gray;
     text-align: center;
 
-    &__form {
-        &__drag,
-        &__separator {
-            display: block;
-            color: gray;
-            margin: 0px;
-        }
-    
-        &__drag {
-            font-size: 30px;
-        }
-    
-        &__separator {
-            font-size: 20px;
-            padding: 10px 0px;
-        }
-    
-        &__result {
-            padding: 10px;
-            font-size: 16px;
-        }
+    > div {
+        padding: 10px;
+    }
 
-        &__select {
-            @extend %btn;
+    &--isDragActive {
+        border-color: #3498db;
+    }
+
+    &__drop,
+    &__separator {
+        display: block;
+        color: gray;
+        margin: 0px;
+    }
+
+    &__drop {
+        font-size: 30px;
+    }
+
+    &__separator {
+        font-size: 20px;
+        padding: 10px 0px;
+    }
+
+    &__result {
+        padding: 10px;
+        font-size: 16px;
+        text-align: left;
+
+        &__item > * {
+            display: inline-block;
         }
+    }
+
+    &__select {
+        @extend %btn;
     }
 }

@@ -15,10 +15,9 @@
   "keywords": [],
   "author": "Romain Diegoni",
   "license": "ISC",
-  "repository" :
-  { 
-    "type" : "git",
-    "url" : "https://github.com/drioemgaoin/image-components.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drioemgaoin/image-components.git"
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.9",
@@ -27,6 +26,7 @@
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
     "@types/react-hot-loader": "^3.0.6",
+    "@types/react-icons": "^2.2.5",
     "@types/react-router-config": "^1.0.6",
     "@types/react-router-dom": "^4.2.5",
     "@types/reactstrap": "^5.0.20",
@@ -59,9 +59,12 @@
     "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
+    "attr-accept": "^1.1.2",
+    "bem-classname": "^0.1.1",
     "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-icons": "^2.2.7",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
     "reactstrap": "^5.0.0-beta.3"
