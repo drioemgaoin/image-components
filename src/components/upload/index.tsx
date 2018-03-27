@@ -4,7 +4,7 @@ import { FaClose } from 'react-icons/lib/fa';
 
 import { getDataTransferItems, fileAccepted, fileMatchSize } from './util';
 
-export interface UploadProps {
+export interface UploadProps extends React.Props<Upload> {
     disabled?: boolean;
     accept?: string;
     minSize?: number;
@@ -34,6 +34,12 @@ export class Upload extends React.Component<UploadProps, UploadState> {
     private divElement: HTMLDivElement;
     private dragTargets: any[];
 
+    public static defaultProps: Partial<UploadProps> = {
+        multiple: false,
+        minSize: 0,
+        maxSize: Number.MAX_SAFE_INTEGER
+    };
+
     constructor(props: UploadProps) {
         super(props);
 
@@ -48,7 +54,8 @@ export class Upload extends React.Component<UploadProps, UploadState> {
     render() {
         const rootClassName = bem('Upload', { isDragActive: this.state.isDragActive });
         const inputAttributes: any = {
-            multiple: this.props.multiple
+            multiple: this.props.multiple,
+            accept: this.props.accept
         };
         return (
             <div
@@ -72,7 +79,11 @@ export class Upload extends React.Component<UploadProps, UploadState> {
 
                     <label className="Upload__separator">or if you prefer...</label>
 
-                    <button className="Upload__select" type="submit" onClick={this.onOpenFileExplorer}>
+                    <button
+                        className="Upload__select"
+                        type="submit"
+                        onClick={this.composeHandlers(this.onOpenFileExplorer)}
+                    >
                         Select a file from your computer
                     </button>
 
@@ -123,22 +134,8 @@ export class Upload extends React.Component<UploadProps, UploadState> {
     private drop(e: React.SyntheticEvent<HTMLDivElement>) {
         e.preventDefault();
 
-        const fileList = getDataTransferItems(e);
-        const acceptedFiles: any = [];
-        const rejectedFiles: any = [];
-
-        fileList.forEach((file: any) => {
-            if (fileAccepted(file, this.props.accept) && fileMatchSize(file, this.props.maxSize, this.props.minSize)) {
-                acceptedFiles.push(file);
-            } else {
-                rejectedFiles.push(file);
-            }
-        });
-
-        this.setState({
-            isDragActive: false,
-            files: fileList
-        });
+        const files = getDataTransferItems(e);
+        this.updateSelectedFiles(files);
     }
 
     private openFileExplorer(e: HTMLButtonElement) {
@@ -146,7 +143,8 @@ export class Upload extends React.Component<UploadProps, UploadState> {
     }
 
     private selectFile(e: HTMLInputElement) {
-        this.setState({ files: e.target.files });
+        const files = e.target.files;
+        this.updateSelectedFiles(files);
     }
 
     private deleteFile(index: number, e: React.SyntheticEvent<FaClose>) {
@@ -156,6 +154,28 @@ export class Upload extends React.Component<UploadProps, UploadState> {
             const files = Array.from(this.state.files);
             files.splice(index, 1);
             return { files };
+        });
+    }
+
+    private updateSelectedFiles(files: any[]) {
+        const acceptedFiles: any = [];
+        const rejectedFiles: any = [];
+
+        files.forEach((file: any) => {
+            if (fileAccepted(file, this.props.accept) && fileMatchSize(file, this.props.maxSize, this.props.minSize)) {
+                acceptedFiles.push(file);
+            } else {
+                rejectedFiles.push(file);
+            }
+        });
+
+        if (!this.props.multiple) {
+            rejectedFiles.push(...acceptedFiles.splice(1));
+        }
+
+        this.setState({
+            isDragActive: false,
+            files: acceptedFiles
         });
     }
 

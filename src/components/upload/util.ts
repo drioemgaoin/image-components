@@ -19,7 +19,7 @@ export function getDataTransferItems(event: any) {
 }
 
 export function fileAccepted(file: any, accept: string) {
-    return file.type === 'application/x-moz-file' || accepts(file, accept);
+    return file.type === 'application/x-moz-file' || !accept || accepts(file, accept);
 }
 
 export function fileMatchSize(file: any, maxSize: number, minSize: number) {
